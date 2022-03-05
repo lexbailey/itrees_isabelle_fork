@@ -1,6 +1,8 @@
 title = Isabelle/Scala
 module = $ISABELLE_HOME/lib/classes/isabelle.jar
 main = isabelle.jedit.JEdit_Main
+requirements = \
+  env:JEDIT_JARS
 resources = \
   lib/services/java.nio.charset.spi.CharsetProvider:META-INF/services/ \
   lib/logo/isabelle_transparent-32.gif:isabelle/ \

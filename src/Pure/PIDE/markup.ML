@@ -238,6 +238,10 @@ sig
   val padding_command: Properties.entry
   val dialogN: string val dialog: serial -> string -> T
   val jedit_actionN: string
+  val run_shell_commandN: string
+  val shell_commandN: string
+  val shell_typeN: string
+  val shell_directoryN: string
   val functionN: string
   val ML_statistics: {pid: int, stats_dir: string} -> Properties.T
   val commands_accepted: Properties.T
@@ -751,6 +755,13 @@ fun dialog i result = (dialogN, [(serialN, Value.print_int i), (resultN, result)
 
 val jedit_actionN = "jedit_action";
 
+val run_shell_commandN = "run_shell_command"
+
+val shell_commandN = "shell_command"
+
+val shell_typeN = "shell_type"
+
+val shell_directoryN = "shell_directory"
 
 (* protocol message functions *)
 

@@ -14,6 +14,8 @@ sig
   val dialog: unit -> (string -> Markup.T) * string future
   val dialog_text: unit -> (string -> string) * string future
   val dialog_result: serial -> string -> unit
+  val run_shell_command: string -> string option -> string -> string -> string
+  val run_system_shell_command: string option -> string -> string -> string
 end;
 
 structure Active: ACTIVE =
@@ -59,6 +61,16 @@ fun dialog_result i result =
   Synchronized.change_result dialogs
     (fn tab => (Inttab.lookup tab i, Inttab.delete_safe i tab))
   |> (fn NONE => () | SOME promise => Future.fulfill promise result);
+
+fun run_shell_command shell dir cmd = 
+  let val dirprop = (case dir of NONE => [] | SOME d => [(Markup.shell_directoryN, d)])
+  in Markup.markup 
+      (make_markup Markup.run_shell_commandN 
+        {implicit = false
+        ,properties = [(Markup.shell_typeN, shell), (Markup.shell_commandN, cmd)] @ dirprop})
+  end
+
+val run_system_shell_command = run_shell_command "System";
 
 end;
 

@@ -9,7 +9,7 @@ package isabelle.jedit
 
 import isabelle._
 import org.gjt.sp.jedit.{ServiceManager, View}
-
+import console.{Console, Shell}
 
 object Active {
   abstract class Handler {
@@ -98,6 +98,36 @@ object Active {
         case Protocol.Dialog(id, serial, result) =>
           model.session.dialog_result(id, serial, result)
           true
+
+        case XML.Elem(Markup(Markup.RUN_SHELL_COMMAND, props), _) =>
+          val shell_name = Properties.get(props, Markup.SHELL_TYPE).getOrElse("System")
+          Properties.get (props, Markup.SHELL_COMMAND) match { 
+            case None => false
+            case Some(cmd) =>
+              view.getDockableWindowManager().addDockableWindow("console")
+
+              // Obtain the console instance
+              val console = view.getDockableWindowManager().getDockable("console").asInstanceOf[Console]
+
+              // Set the shell to use
+              val shell = Shell.getShell(shell_name)
+
+              shell.stop(console)
+              while (!shell.waitFor(console)) { }
+
+              // Change directory if requested
+              Properties.get(props, Markup.SHELL_DIRECTORY) match {
+                case Some(dir) => shell.chDir(console, dir);
+                case None => {}
+              }
+              while (!shell.waitFor(console)) { }
+
+              // Run the given command
+              console.run(shell, cmd)
+
+              true
+          }
+
 
         case _ => false
       }
