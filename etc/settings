@@ -69,6 +69,7 @@ isabelle_directory '~~'
 
 ISABELLE_COMPONENT_REPOSITORY="https://isabelle.sketis.net/components"
 ISABELLE_COMPONENTS_BASE="$ISABELLE_HOME/contrib"
+ISABELLE_IDENTIFIER="itrees_utp_2021-1"
 
 # The place for user configuration, heap files, etc.
 if [ -z "$ISABELLE_IDENTIFIER" ]; then
