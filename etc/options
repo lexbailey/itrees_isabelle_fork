@@ -138,7 +138,7 @@ option profiling : string = "" (standard "time")
 option system_log : string = "" (standard "-")
   -- "output for system messages (log file or \"-\" for console progress)"
 
-option system_heaps : bool = false
+option system_heaps : bool = true
   -- "store session heaps in $ISABELLE_HEAPS_SYSTEM, not $ISABELLE_HEAPS"
 
 
