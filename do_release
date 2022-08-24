@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-echo "Fetch missing components..."
-./bin/isabelle components -a
-echo "Build release..."
-./Admin/build_release
