@@ -606,6 +606,10 @@ object Markup {
 
   val JEDIT_ACTION = "jedit_action"
 
+  val SHELL_COMMAND = "shell_command"
+  val SHELL_TYPE = "shell_type"
+  val SHELL_DIRECTORY = "shell_directory"
+  val RUN_SHELL_COMMAND = "run_shell_command"
 
   /* protocol message functions */
 
